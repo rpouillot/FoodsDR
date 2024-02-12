@@ -16,5 +16,5 @@ Run `ScriptDR_RP.R`
 
 ``` r
 install.packages("devtools")
-devtools::install_github("rpouillot/FoodsDR/doseresponsemodels")
+devtools::install_github("vcadavez/doseresponsemodels")
 ```
