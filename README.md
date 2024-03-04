@@ -22,8 +22,7 @@ devtools::install_github("rpouillot/doseresponsemodels")
 The `doseresponsemodels::DRQuick()` function provides a "quick" version of
 the function to derive the marginal probability of invasive listeriosis in a given population for a given dose in CFU (actual dose if the argument `Poisson = FALSE` or average dose
 if the argument `Poisson = TRUE`) using the "JEMRA" 2004, the "Pouillot" *et al.*, 2015, the "Fritsch" *et al.* 2018, 
-the "EFSA", 2018 dose-response models or the model developed within this project ("EFSAMV" for more virulent strains, "EFSAV" for virulent strains,or "EFSALV" for the less virulent strains).
-See `help('DRQuick')` for the 
+the "EFSA", 2018 dose-response models or the model developed within this project ("EFSAMV" for more virulent strains, "EFSAV" for virulent strains,n or "EFSALV" for the less virulent strains).
 
 ``` r
 library("doseresponsemodels")
@@ -35,7 +34,9 @@ DRQuick(1:10,  model="EFSAMV", population = 1:14)
 ```
 
 This function uses (for all model but `JEMRA`) a linear approximation (`approxfun`) 
-from the exact `doseresponsemodels::DR()` model. 
+from the exact `doseresponsemodels::DR()` function. 
+
+
 
    | Model    | Population | Characteristics              |
    |----------|------------|------------------------------|
