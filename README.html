@@ -354,18 +354,233 @@ display: none;
 
 <div id="foodsdr" class="section level1">
 <h1>FoodsDR</h1>
-<p>Code to derive the Foods DR manuscript</p>
-<div id="code-to-derive-the-dose-response" class="section level2">
-<h2>Code to derive the dose response</h2>
-<p>This code provide the necessary material to derive the dose-response
-model for <em>Listeria monocytogenes</em> dose-response.</p>
-<p>Download the repository.</p>
-<p>Run <code>ScriptDR_RP.R</code></p>
-</div>
+<p>This repository contains the R code and data necessary to derive the
+manuscript <strong>“Updated parameters for the dose-response model for
+<em>Listeria monocytogenes</em> considering pathogen virulence and age
+and sex of consumer”</strong>. from Régis Pouillot, Andreas Kiermeier,
+Laurent Guillier, Vasco Cadavez, and Moez Sanaa. <em>Foods</em>
+<strong>2024</strong>, <em>13</em>(5), 751 (<a href="https://doi.org/10.3390/foods13050751" class="uri">https://doi.org/10.3390/foods13050751</a>), as well as the
+link to install the <code>doseresponsemodels</code> package.</p>
 <div id="r-package-to-use-the-dose-response-models" class="section level2">
 <h2>R package to use the Dose Response models</h2>
+<div id="package-installation" class="section level3">
+<h3>Package installation</h3>
 <pre class="r"><code>install.packages(&quot;devtools&quot;)
-devtools::install_github(&quot;rpouillot/FoodsDR/doseresponsemodels&quot;)</code></pre>
+devtools::install_github(&quot;rpouillot/doseresponsemodels&quot;)</code></pre>
+</div>
+<div id="usage" class="section level3">
+<h3>Usage</h3>
+<p>The <code>doseresponsemodels::DRQuick()</code> function provides a
+“quick” version of the function to derive the marginal probability of
+invasive listeriosis in a given population for a given dose in CFU
+(actual dose if the argument <code>Poisson = FALSE</code> or average
+dose if the argument <code>Poisson = TRUE</code>) using the “JEMRA”
+2004, the “Pouillot” <em>et al.</em>, 2015, the “Fritsch” <em>et
+al.</em> 2018, the “EFSA”, 2018 dose-response models or the model
+developed within this project (“EFSAMV” for more virulent strains,
+“EFSAV” for virulent strains,or “EFSALV” for the less virulent strains).
+See <code>help(&#39;DRQuick&#39;)</code> for the</p>
+<pre class="r"><code>library(&quot;doseresponsemodels&quot;)
+help(&#39;DRQuick&#39;)
+DRQuick(1:10,  model=&quot;JEMRA&quot;, population = 1:2)
+DRQuick(1:10,  model=&quot;Pouillot&quot;, population = 1:11)
+DRQuick(1:10,  model=&quot;EFSA&quot;, population = 1:14)
+DRQuick(1:10,  model=&quot;EFSAMV&quot;, population = 1:14)</code></pre>
+<p>This function uses (for all model but <code>JEMRA</code>) a linear
+approximation (<code>approxfun</code>) from the exact
+<code>doseresponsemodels::DR()</code> model.</p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="23%" />
+<col width="57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Population</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JEMRA</td>
+<td>1</td>
+<td>Healthy population</td>
+</tr>
+<tr class="even">
+<td>JEMRA</td>
+<td>2</td>
+<td>Increased susceptibility</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>1</td>
+<td>Less than 65 years old</td>
+</tr>
+<tr class="even">
+<td>Pouillot</td>
+<td>2</td>
+<td>More than 65 years old</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>3</td>
+<td>Pregnancy</td>
+</tr>
+<tr class="even">
+<td>Pouillot</td>
+<td>4</td>
+<td>Nonhematological Cancer</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>5</td>
+<td>Hematological cancer</td>
+</tr>
+<tr class="even">
+<td>Pouillot</td>
+<td>6</td>
+<td>Renal or Liver failure</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>7</td>
+<td>Solid organ transplant</td>
+</tr>
+<tr class="even">
+<td>Pouillot</td>
+<td>8</td>
+<td>Inflammatory diseases</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>9</td>
+<td>HIV/AIDS</td>
+</tr>
+<tr class="even">
+<td>Pouillot</td>
+<td>10</td>
+<td>Diabetes</td>
+</tr>
+<tr class="odd">
+<td>Pouillot</td>
+<td>11</td>
+<td>Heart diseases</td>
+</tr>
+<tr class="even">
+<td>Fritsch</td>
+<td>1</td>
+<td>Highly virulent</td>
+</tr>
+<tr class="odd">
+<td>Fritsch</td>
+<td>2</td>
+<td>Medium virulent</td>
+</tr>
+<tr class="even">
+<td>Fritsch</td>
+<td>3</td>
+<td>Hypovirulent</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>1</td>
+<td>Female 1-4 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>2</td>
+<td>Male 1-4 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>3</td>
+<td>Female 5-14 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>4</td>
+<td>Male 5-14 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>5</td>
+<td>Female 15-24 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>6</td>
+<td>Male 15-24 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>7</td>
+<td>Female 25-44 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>8</td>
+<td>Male 25-44 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>9</td>
+<td>Female 45-64 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>10</td>
+<td>Male 45-64 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>11</td>
+<td>Female 65-74 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>12</td>
+<td>Male 65-74 yo</td>
+</tr>
+<tr class="odd">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>13</td>
+<td>Female &gt;75 yo</td>
+</tr>
+<tr class="even">
+<td>EFSA-EFSALV-EFSAV-EFSAMV</td>
+<td>14</td>
+<td>Male &gt;75 yo</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="code-to-derive-the-dose-response" class="section level2">
+<h2>Code to derive the dose response</h2>
+<p>This code provides the necessary material to derive the dose-response
+model for <em>Listeria monocytogenes</em> dose-response.</p>
+<p>Download the <a href="https://github.com/rpouillot/FoodsDR/tree/main/code">code</a>
+repository.</p>
+<p>Run <code>ScriptDR_RP.R</code></p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>EFSA (2018). “Scientific opinion on the Listeria monocytogenes
+contamination of ready-to-eat foods and the risk from human health in
+the EU.” EFSA Journal, 16(1), 5134 (<a href="https://doi.org/10.2903/j.efsa.2018.5134" class="uri">https://doi.org/10.2903/j.efsa.2018.5134</a>).</p>
+<p>FAO-WHO (2004). “Risk assessment of Listeria monocytogenes in
+ready-to-eat foods: Technical report.” World Health Organization and
+Food and Agriculture Organization of the United Nations (<a href="https://www.fao.org/3/y5394e/y5394e00.pdf" class="uri">https://www.fao.org/3/y5394e/y5394e00.pdf</a>).</p>
+<p>Fritsch L, Guillier L, Augustin J (2018). “Next generation
+quantitative microbiological risk assessment: Refinement of the cold
+smoked salmon-related listeriosis risk model by integrating genomic
+data.” Microbial Risk Analysis, 10, 20–27. (<a href="https://doi.org/10.1016/j.mran.2018.06.003" class="uri">https://doi.org/10.1016/j.mran.2018.06.003</a>).</p>
+<p>Pouillot R, Hoelzer K, Chen Y, Dennis SB (2015). “<em>Listeria
+monocytogenes</em> dose response revisited–incorporating adjustments for
+variability in strain virulence and host susceptibility.” Risk Analysis,
+35(1), 90–108. (<a href="https://doi.org/10.1111/risa.12235" class="uri">https://doi.org/10.1111/risa.12235</a>).</p>
 </div>
 </div>
 

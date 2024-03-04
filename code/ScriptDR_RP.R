@@ -18,7 +18,7 @@ DoseCont <- seq(0, 12, step)
 source("script2_RP.R") #full script from initial conc to number of cases
 
 # IF RERUN EXPO set to TRUE. If not, set to FALSE
-reRunExpo <- TRUE
+reRunExpo <- FALSE
 
 # Load Data
 ProbViru <- read_excel(xfile,sheet="ProbVirulence")
@@ -114,6 +114,8 @@ f <- function(Mean, Sd = 1, target=0, Prop=1, Print=FALSE){
 #
 ############################################################
 # get directly the sd from Fritsch
+# Evaluate the intra group standard deviation  (see Pouillot et al, 2015)
+SdVirAll <- (5/2)/qnorm(0.95) # Virulence variability
 SdVirMV <- sd(Fritsch$r[Fritsch$VirulInd == "MV"])
 SdVirV <- sd(Fritsch$r[Fritsch$VirulInd == "V"])
 SdVirLV <- sd(Fritsch$r[Fritsch$VirulInd == "LV"])
@@ -168,7 +170,7 @@ for(Virul in c("All","MV","V","LV")){
     PrevDose <- rescases$dose$prob[rescases$dose$Path == Path] 
     # The number of Meals is multiplied by 8 (number of EFSA survey, 2008-2015)
     MealsCont <- Data$Prev[i] * Data$EO[i] * PrevDose * 8 # years of surveys
-    
+
     cat("\n\n",Path,"\n")
     
     
