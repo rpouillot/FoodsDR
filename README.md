@@ -36,12 +36,20 @@ DRQuick(1:10,  model="EFSAMV", population = 1:14)
 This function uses (for all model but `JEMRA`) a linear approximation (`approxfun`) 
 from the exact `doseresponsemodels::DR()` function. 
 
+The marginal dose-response over all sub-populations (population: 0) is obtained by weighting 
+the estimated probabilities according to the proportion of each sub-populations
+as provided by JEMRA 2004 (82.5% healthy, 17.5%
+with increased susceptibility), Pouillot *et al.* 2015,
+(their Table I, based on frequency of each sub-populations in France),
+Fritsch *et al.* 2018, and EFSA 2018 (their Table 2, based on the number of eating occasions per sub-population).
 
 
    | Model    | Population | Characteristics              |
    |----------|------------|------------------------------|
+   | JEMRA    | 0          | Marginal over sub-populations    |  
    | JEMRA    | 1          | Healthy population           |
    | JEMRA    | 2          | Increased susceptibility     |
+   | Pouillot | 0          | Marginal over populations    |  
    | Pouillot | 1          | Less than 65 years old       |
    | Pouillot | 2          | More than 65 years old       |
    | Pouillot | 3          | Pregnancy                    |
@@ -53,9 +61,11 @@ from the exact `doseresponsemodels::DR()` function.
    | Pouillot | 9          | HIV/AIDS                     |
    | Pouillot | 10         | Diabetes                     |
    | Pouillot | 11         | Heart diseases               |
+   | Fritsch  | 0          | Marginal over virukence      |
    | Fritsch  | 1          | Highly virulent              |
    | Fritsch  | 2          | Medium virulent              |
    | Fritsch  | 3          | Hypovirulent                 |
+   | EFSA-EFSALV-EFSAV-EFSAMV     | 0          | Marginal over sub-populations  |
    | EFSA-EFSALV-EFSAV-EFSAMV     | 1          | Female 1-4 yo                |
    | EFSA-EFSALV-EFSAV-EFSAMV     | 2          | Male 1-4 yo                  |
    | EFSA-EFSALV-EFSAV-EFSAMV     | 3          | Female 5-14 yo               |
